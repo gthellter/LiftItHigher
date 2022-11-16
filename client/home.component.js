@@ -6,13 +6,25 @@ import { default as theme } from '../theme.json';
 import { default as mapping } from '../mapping.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useNavigation } from '@react-navigation/native';
-import getData from './getData';
+import { useWorkoutStore } from './WorkoutStore';
+import { getMuscleGroups, getEquipment } from './getData';
 
 const HomeScreen = () => {
-  const [workouts, setWorkouts] = useState(['Push Day 1', 'Pull Day 1', 'Leg Day 1', 'Push Day 2', 'Pull Day 2', 'Leg Day 2']);
+
+  // set state
+  const setWorkouts = useWorkoutStore((state) => state.setWorkouts)
+  const setMuscleGroups = useWorkoutStore((state) => state.setMuscleGroups)
+  const setEquipment = useWorkoutStore((state) => state.setEquipment)
+  // get state
+  const workouts = useWorkoutStore.getState().workouts;
 
   useEffect(() => {
-    getData();
+  getMuscleGroups().then(results => {
+    setMuscleGroups(results.data.results);
+  })
+  getEquipment().then(results => {
+    setEquipment(results.data.results);
+  })
   },[])
 
   const navigation = useNavigation();

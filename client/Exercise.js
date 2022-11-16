@@ -4,14 +4,57 @@ import { default as theme } from '../theme.json';
 import { default as mapping } from '../mapping.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { SafeAreaView, View } from 'react-native';
-import { Divider, Icon, TopNavigation, TopNavigationAction, ApplicationProvider, IconRegistry, Layout, Text, Button } from '@ui-kitten/components';
+import { Divider, Icon, TopNavigation, TopNavigationAction, ApplicationProvider, IconRegistry, Layout, Text, Button, Input } from '@ui-kitten/components';
+import { Set } from './Set';
 
-export const Exercise = ({exercise}) => {
+export const Exercise = ({exercise, workout, exerciseIndex}) => {
 
 
+  const [exerciseSets, setExerciseSets] = useState({});
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(()=> {
+    const tempSets = {};
+    for ( let i = 1; i <= exercise.numberOfSets; i++) {
+      let currentSet = {
+        setNumber: i,
+        weight: '',
+        reps: ''}
+        tempSets[i] = currentSet;
+      }
+      setExerciseSets(tempSets);
+      setLoading(false);
+  }, [])
+
+
+if (exercise.name === 'none' || loading) {
   return (
     <View>
-      <Text>{exercise.name}</Text>
+      <Text category='h3'>You don't have any exercises yet, Or they're loading</Text>
+    </View>)
+} else {
+  return (
+    <View style={{flex:1, flexDirection:'column'}}>
+      <Text category="h5" >{exercise.currentExercise.name}</Text>
+      <View style={{flex:1, flexDirection:'row',}}>
+        <Text style={columnStyles}>Set</Text>
+        <Text style={columnStyles}>Max Weight/Reps</Text>
+        <Text style={columnStyles}>Previous Weight/Reps</Text>
+        <Text style={columnStyles}>Current Weight</Text>
+        <Text style={columnStyles}>Current Reps</Text>
+      </View>
+      {Object.keys(exerciseSets).map((set, index) => (
+        <Set set={index + 1} workout={workout} exerciseIndex={exerciseIndex} key={index}
+          exerciseId={exercise.currentExercise.id}/>
+      ))}
     </View>
-  )
+)}}
+
+const columnStyles = {
+  flex:1,
+  textAlign: 'center',
+  maxWidth:60,
+  minWidth: 60
+
 }

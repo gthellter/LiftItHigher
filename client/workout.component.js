@@ -7,6 +7,8 @@ import { SafeAreaView, View } from 'react-native';
 import { Divider, Icon, TopNavigation, TopNavigationAction, ApplicationProvider, IconRegistry, Layout, Text, Button } from '@ui-kitten/components';
 import { useWorkoutStore } from './WorkoutStore';
 import { Exercise } from './Exercise';
+import { useIsFocused } from "@react-navigation/native";
+
 
 const BackIcon = (props) => (
   <Icon {...props} name='arrow-back' />
@@ -14,10 +16,16 @@ const BackIcon = (props) => (
 
 const WorkoutScreen = ({ navigation, route }) => {
   const {workout} = route.params;
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    setCurrentExercises(ExerciseList[workout.split(' ').join('')] || [{name: 'none'}])
+  }, [isFocused])
   // get from store
   const setWorkouts = useWorkoutStore((state) => state.setWorkouts)
-  const ExerciseList = useWorkoutStore.getState().exerciseList;
-  const [exercises, setExercises] = useState(ExerciseList[workout.split(' ').join('')] || [{name: 'looks like you don\'t have any Exercises yet, lazy?'}]);
+  const ExerciseList = useWorkoutStore((state) => state.exerciseList)
+  const [currentExercises, setCurrentExercises] = useState(ExerciseList[workout.split(' ').join('')] || [{name: 'none'}])
 
   const navigateBack = () => {
     navigation.goBack();
@@ -28,7 +36,6 @@ const WorkoutScreen = ({ navigation, route }) => {
   );
 
   const handleAddExercise = () => {
-    console.log('here')
     navigation.navigate('addExercise',{ workout });
   };
 
@@ -43,8 +50,8 @@ const WorkoutScreen = ({ navigation, route }) => {
       <Divider/>
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500 }}>
         <View style={{flex: 1, flexShrink: 1, top: 10}} >
-          {exercises.map((exercise, index) => (
-            <Exercise exercise={exercise} key={index} />
+          {currentExercises.map((exercise, index) => (
+            <Exercise exercise={exercise} key={index} workout={workout} exerciseIndex={index} />
           ))}
         </View>
         <Button style={{flex: 1, justifyItems: 'flex-end', flexShrink: 2, maxHeight: 2, bottom: 40 }}

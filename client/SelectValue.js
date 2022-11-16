@@ -5,18 +5,19 @@ import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
 export const SelectValue= ({selectGroup, setSelectGroup}) => {
 
   const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
-console.log(selectGroup);
+
   const setSelected = (index) => {
     setSelectedIndex(index);
-    setSelectGroup(selectGroup[index]);
+    setSelectGroup(selectGroup[index.row]);
   }
   return (
     <Layout style={styles.container} level='1'>
       <Select
         selectedIndex={selectedIndex}
+        value={selectGroup[selectedIndex.row] ? (selectGroup[selectedIndex.row].name_en || selectGroup[selectedIndex.row].name) : 'No Exercises Available'}
         onSelect={index => setSelected(index)}>
-          {selectGroup.map((group, index) => (
-            <SelectItem title={group[name_en || name]} />
+          {selectGroup.map((group) => (
+            <SelectItem title={group.name_en || group.name} key={group.id}/>
             ))}
       </Select>
     </Layout>
@@ -26,5 +27,6 @@ console.log(selectGroup);
 const styles = StyleSheet.create({
   container: {
     minHeight: 128,
+    minWidth: 400
   },
 });

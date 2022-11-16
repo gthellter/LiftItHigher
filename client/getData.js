@@ -2,23 +2,27 @@ import { useWorkoutStore } from './WorkoutStore';
 import axios from 'axios';
 
 
-const getData = () => {
-
-  const setWorkouts = useWorkoutStore((state) => state.setWorkouts)
-  const setMuscleGroups = useWorkoutStore((state) => state.setMuscleGroups)
-  const setEquipment = useWorkoutStore((state) => state.setEquipment)
-
-  axios.get('https://wger.de/api/v2/muscle').then(results => {
-      console.log(results.results);
-      setMuscleGroups(results.results);
+export const getMuscleGroups = () => {
+  return axios.get('https://wger.de/api/v2/muscle').then(results => {
+      return results;
     }).catch(err => {
       console.log(err);
     });
-  axios.get('https://wger.de/api/v2/equipment').then(results => {
-    setEquipment(results.results)
+  };
+
+export const getEquipment = () => {
+  return axios.get('https://wger.de/api/v2/equipment').then(results => {
+    return results
   }).catch(err => {
     console.log(err);
   })
-}
+};
 
-export default getData;
+export const getExercises = (muscle, equipment) => {
+  let equipmentString = equipment.id > -1 ? `&equipment=${equipment.id}` : '';
+  return axios.get(`https://wger.de/api/v2/exercise/?muscles=${muscle.id}${equipmentString}`).then(results => {
+    return results;
+}).catch(err => {
+  console.log(err);
+});
+  };
