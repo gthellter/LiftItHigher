@@ -20,12 +20,16 @@ const WorkoutScreen = ({ navigation, route }) => {
 
   const isFocused = useIsFocused();
 
+  const [reRender, setReRender] = useState(0);
+
   useEffect(() => {
     setCurrentExercises(ExerciseList[workout.split(' ').join('')] || [{name: 'none'}])
+    setReRender(Math.Random*100);
   }, [isFocused])
   // get from store
   const setWorkouts = useWorkoutStore((state) => state.setWorkouts)
   const ExerciseList = useWorkoutStore((state) => state.exerciseList)
+  console.log(ExerciseList);
   const [currentExercises, setCurrentExercises] = useState(ExerciseList[workout.split(' ').join('')] || [{name: 'none'}])
 
   const navigateBack = () => {
@@ -41,7 +45,7 @@ const WorkoutScreen = ({ navigation, route }) => {
   };
 
   const handleSaveWorkout = () => {
-    saveWorkout().then((results) => {
+    saveWorkouts().then((results) => {
       Alert.alert("Workout", 'Workout Saved', {cancellable: true})
     })
   };
@@ -58,7 +62,7 @@ const WorkoutScreen = ({ navigation, route }) => {
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500 }}>
         <View style={{flex: 1, flexShrink: 1, top: 10, position: 'absolute'}} >
           {currentExercises.map((exercise, index) => (
-            <Exercise exercise={exercise} key={index} workout={workout} exerciseIndex={index} />
+            <Exercise exercise={exercise} key={Math.random() * 100} workout={workout} exerciseIndex={index} />
           ))}
         </View>
         <View style={{flex:1, flexDirection:'row', position: 'absolute', bottom:-30}}>

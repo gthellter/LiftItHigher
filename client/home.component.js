@@ -7,7 +7,7 @@ import { default as mapping } from '../mapping.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useWorkoutStore } from './WorkoutStore';
-import { getMuscleGroups, getEquipment } from './getData';
+import { getMuscleGroups, getEquipment, getSavedWorkouts } from './getData';
 
 const HomeScreen = () => {
 
@@ -15,16 +15,32 @@ const HomeScreen = () => {
   const setWorkouts = useWorkoutStore((state) => state.setWorkouts)
   const setMuscleGroups = useWorkoutStore((state) => state.setMuscleGroups)
   const setEquipment = useWorkoutStore((state) => state.setEquipment)
-  // get state
+  // get state from WorkoutStore
   const workouts = useWorkoutStore.getState().workouts;
+  const setExercises = useWorkoutStore((state) => state.setExercises);
+  const setExerciseSets = useWorkoutStore((state) => state.setExerciseSets);
+  const setUserData = useWorkoutStore((state) => state.setUserData);
 
   useEffect(() => {
   getMuscleGroups().then(results => {
     setMuscleGroups(results.data.results);
-  })
+  }).catch(err => {
+    console.log(err);
+  });
+
   getEquipment().then(results => {
     setEquipment(results.data.results);
-  })
+  }).catch(err => {
+      console.log(err);
+    });
+
+  getSavedWorkouts('gthellter').then(results => {
+    setExercises(results.data[0].exerciseList);
+    setExerciseSets(results.data[0].exerciseSets);
+    setUserData({username: results.data[0].username});
+
+  });
+
   },[])
 
   const navigation = useNavigation();

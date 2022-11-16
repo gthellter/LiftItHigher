@@ -12,20 +12,29 @@ export const Set = ({set, workout, exerciseIndex, exerciseId}) => {
   workout = workout.split(' ').join('');
 
   const exerciseSets = useWorkoutStore((state) => state.exerciseSets);
+  const setExerciseSets = useWorkoutStore((state) => state.setExerciseSets);
   // console.log(exerciseSets);
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
-
-  exerciseSets[exerciseId] = {};
-  exerciseSets[exerciseId][set] = { }
+  if(!exerciseSets[exerciseId]) {
+    exerciseSets[exerciseId] = {};
+    exerciseSets[exerciseId][set] = {};
+    setExerciseSets(exerciseSets);
+  } else if (!exerciseSets[exerciseId][set]) {
+    exerciseSets[exerciseId][set] = {};
+    setExerciseSets(exerciseSets);
+  }
 
   const onChangeWeight =(value) => {
     setWeight(value);
-    exerciseSets[exerciseId][set] = { weight, reps };
+    exerciseSets[exerciseId][set] = { reps: reps, weight: value };
+    setExerciseSets(exerciseSets);
+
   };
   const onChangeReps =(value) => {
     setReps(value)
-    exerciseSets[exerciseId][set] = { weight, reps };
+    exerciseSets[exerciseId][set] = { weight: weight, reps: value };
+    setExerciseSets(exerciseSets);
   };
 
   return (

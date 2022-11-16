@@ -20,4 +20,10 @@ export const useWorkoutStore  = create(set => ({
   setWorkouts: (workouts) => {
     set({ workouts });
   },
+  setExerciseSets: (exerciseSets) => {
+    set({exerciseSets: exerciseSets});
+  },
+  setUserData: (userData) => {
+    set({ userData });
+  },
 }))

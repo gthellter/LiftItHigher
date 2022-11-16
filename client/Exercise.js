@@ -7,7 +7,7 @@ import { SafeAreaView, View } from 'react-native';
 import { Divider, Icon, TopNavigation, TopNavigationAction, ApplicationProvider, IconRegistry, Layout, Text, Button, Input } from '@ui-kitten/components';
 import { Set } from './Set';
 
-export const Exercise = ({exercise, workout, exerciseIndex}) => {
+export const Exercise = ({exercise, workout, exerciseIndex, reRender}) => {
 
 
   const [exerciseSets, setExerciseSets] = useState({});
@@ -25,7 +25,7 @@ export const Exercise = ({exercise, workout, exerciseIndex}) => {
       }
       setExerciseSets(tempSets);
       setLoading(false);
-  }, [])
+  }, [exercise])
 
 
 if (exercise.name === 'none' || loading) {
@@ -46,7 +46,7 @@ if (exercise.name === 'none' || loading) {
       </View>
       {Object.keys(exerciseSets).map((set, index) => (
         <Set set={index + 1} workout={workout} exerciseIndex={exerciseIndex} key={index}
-          exerciseId={exercise.currentExercise.id}/>
+          exerciseId={exercise.currentExercise.id} reRender={reRender}/>
       ))}
     </View>
 )}}
