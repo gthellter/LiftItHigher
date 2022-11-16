@@ -35,9 +35,9 @@ if (exercise.name === 'none' || loading) {
     </View>)
 } else {
   return (
-    <View style={{flex:1, flexDirection:'column'}}>
+    <View style={{flex:1, flexDirection:'column', alignItems: 'center'}}>
       <Text category="h5" >{exercise.currentExercise.name}</Text>
-      <View style={{flex:1, flexDirection:'row',}}>
+      <View style={{flex:1, flexDirection:'row', alignItems: 'center'}}>
         <Text style={columnStyles}>Set</Text>
         <Text style={columnStyles}>Max Weight/Reps</Text>
         <Text style={columnStyles}>Previous Weight/Reps</Text>

@@ -26,3 +26,14 @@ export const getExercises = (muscle, equipment) => {
   console.log(err);
 });
   };
+
+export const saveWorkouts = () => {
+  const exerciseList = useWorkoutStore.getState().exerciseList;
+  const exerciseSets = useWorkoutStore.getState().exerciseSets;
+  const userData = useWorkoutStore.getState().userData;
+  const data = {userData, exerciseSets, exerciseList};
+
+  return axios.post('http://localhost:3000/saveWorkout', data).then(results => results).catch(err => {
+    console.log(err);
+  })
+}
