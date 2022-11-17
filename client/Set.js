@@ -14,6 +14,11 @@ export const Set = ({set, workout, exerciseIndex, exerciseId}) => {
   const exerciseSets = useWorkoutStore((state) => state.exerciseSets);
   const setExerciseSets = useWorkoutStore((state) => state.setExerciseSets);
   // console.log(exerciseSets);
+  useEffect(() => {
+    if(exerciseSets[exerciseId][set])
+    setWeight(exerciseSets[exerciseId][set].weight)
+    setReps(exerciseSets[exerciseId][set].reps)
+  }, [])
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   if(!exerciseSets[exerciseId]) {
