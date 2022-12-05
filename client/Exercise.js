@@ -30,8 +30,8 @@ export const Exercise = ({exercise, workout, exerciseIndex, reRender}) => {
 
 if (exercise.name === 'none' || loading) {
   return (
-    <View>
-      <Text category='h3'>You don't have any exercises yet, Or they're loading</Text>
+    <View style={{flex:1, flexDirection:'column', alignItems:'center'}}>
+      <Text style={{justifyContent:'center'}} category='h3'>Add Exercises Below</Text>
     </View>)
 } else {
   return (

@@ -80,24 +80,24 @@ useEffect(() => {
   <ApplicationProvider {...eva}
   theme={{...eva.dark, ...theme}}
   customMapping={mapping}>
-  <SafeAreaView style={{ flex: 1 }}>
+  <SafeAreaView style={{ flex: 1,}}>
     <TopNavigation title='Add Exercise' alignment='center' accessoryLeft={BackAction} accessoryRight={AcceptAction}/>
     <Divider/>
-    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500 }}>
-      <View style={{flex: 1, flexShrink: 1, top: 10}} >
-        <Text>Please select Muscle Group to Train:</Text>
+    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500, maxWidth: 500 }}>
+      <View style={{flex: 1, flexShrink: 1, top: 10, maxWidth: 400, alignItems: 'center'}} >
+        <Text style={{paddingBottom: 5}}>Please select Muscle Group to Train:</Text>
         <SelectValue  selectGroup={muscleGroups} setSelectGroup={setMuscleGroup}/>
       </View>
-      <View style={{flex: 1, flexShrink: 1, top: 10}} >
-        <Text>Please select Equipment:</Text>
+      <View style={{flex: 1, flexShrink: 1, top: 10, maxWidth: 400, alignItems: 'center'}} >
+        <Text style={{paddingBottom: 5}}>Please select Equipment:</Text>
         <SelectValue  selectGroup={equipment} setSelectGroup={setCurrentEquipment}/>
       </View>
-      <View style={{flex: 1, flexShrink: 1, top: 10}} >
-      <Text>Please select Exercise to Add:</Text>
-      <SelectValue  selectGroup={currentExerciseList} setSelectGroup={setCurrentExercise}/>
+      <View style={{flex: 1, flexShrink: 1, top: 10, maxWidth: 400, alignItems: 'center'}} >
+      <Text style={{paddingBottom: 5}}>Please select Exercise to Add:</Text>
+      <SelectValue selectGroup={currentExerciseList} setSelectGroup={setCurrentExercise}/>
       </View>
-      <View style={{flex: 1, flexShrink: 1, top: 10}} >
-      <Text>Please select Number Of Sets:</Text>
+      <View style={{flex: 1, flexShrink: 1, top: 10, maxWidth: 400, alignItems: 'center'}} >
+      <Text style={{paddingBottom: 5}}>Please select Number Of Sets:</Text>
       <SetRadio setSets={setNumberOfSets} />
       </View>
     </Layout>
