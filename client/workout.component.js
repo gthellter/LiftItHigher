@@ -3,8 +3,8 @@ import * as eva from '@eva-design/eva';
 import { default as theme } from '../theme.json';
 import { default as mapping } from '../mapping.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { SafeAreaView, View, Alert } from 'react-native';
-import { Divider, Icon, TopNavigation, TopNavigationAction, ApplicationProvider, IconRegistry, Layout, Text, Button } from '@ui-kitten/components';
+import { SafeAreaView, View, Alert, ScrollView } from 'react-native';
+import { Divider, Icon, TopNavigation, TopNavigationAction, ApplicationProvider, IconRegistry, Layout, Text, Button, List } from '@ui-kitten/components';
 import { useWorkoutStore } from './WorkoutStore';
 import { Exercise } from './Exercise';
 import { useIsFocused } from "@react-navigation/native";
@@ -49,6 +49,9 @@ const WorkoutScreen = ({ navigation, route }) => {
       Alert.alert("Workout", 'Workout Saved', {cancellable: true})
     })
   };
+  const renderItem = (exercise, index) => (
+    <Exercise exercise={exercise} key={Math.random() * 100} workout={workout} exerciseIndex={index} />
+  )
 
   return (
     <>
@@ -60,11 +63,14 @@ const WorkoutScreen = ({ navigation, route }) => {
       <TopNavigation title={workout} alignment='center' accessoryLeft={BackAction}/>
       <Divider/>
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500 }}>
-        <View style={{flex: 1, flexShrink: 1, top: 10, position: 'absolute'}} >
+        <Layout style={{flex: 1, flexWrap: 'wrap', flexShrink: 1, top: 10}} >
+      <ScrollView>
           {currentExercises.map((exercise, index) => (
             <Exercise exercise={exercise} key={Math.random() * 100} workout={workout} exerciseIndex={index} />
-          ))}
-        </View>
+            ))}
+            <Text>{"\n\n\n"}</Text>
+            </ScrollView>
+        </Layout>
         <View style={{flex:1, flexDirection:'row', position: 'absolute', bottom:-30}}>
         <Button style={{flex: 1, justifyItems: 'flex-start', flexShrink: 2, maxHeight: 2, maxWidth: 60, bottom: 30, margin:30, borderRadius:'60%' }}
           onPress={() => {handleAddExercise()}}>+</Button>

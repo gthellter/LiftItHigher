@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry, Divider, Layout, Text, Button, TopNavigation } from '@ui-kitten/components';
 import { default as theme } from '../theme.json';
@@ -50,13 +50,14 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <TopNavigation title='WorkoutApp' alignment='center'/> */}
       <Button>Add Workout</Button>
       <Divider/>
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ScrollView>
       {workouts.map((workout, index) => (
-      <Text onPress={() => {navigateWorkout(workout)}} category='h1' style={{margin:30}} key={index}>{workout}</Text>
-      ))}
+        <Text onPress={() => {navigateWorkout(workout)}} category='h1' style={{margin:30}} key={index}>{workout}</Text>
+        ))}
+    </ScrollView>
       </Layout>
     </SafeAreaView>
 )

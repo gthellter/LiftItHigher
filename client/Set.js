@@ -58,6 +58,7 @@ export const Set = ({set, workout, exerciseIndex, exerciseId}) => {
 }
 
 const setInputStyle = {
+  flex: 1,
   minWidth:60 ,
   maxWidth:60
 }

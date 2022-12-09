@@ -6,7 +6,7 @@ export const useWorkoutStore  = create(set => ({
   exerciseList: {},
   muscleGroups: [],
   equipment: [],
-  workouts: ['Push Day 1', 'Pull Day 1', 'Leg Day 1', 'Push Day 2', 'Pull Day 2', 'Leg Day 2'],
+  workouts: ['Push Day 1', 'Pull Day 1', 'Leg Day 1', 'Push Day 2', 'Pull Day 2', 'Leg Day 2', 'Day 3', 'Day 4'],
   exerciseSets: {},
   setExercises: (exerciseList) => {
     set({exerciseList: exerciseList});

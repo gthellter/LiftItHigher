@@ -30,14 +30,14 @@ export const Exercise = ({exercise, workout, exerciseIndex, reRender}) => {
 
 if (exercise.name === 'none' || loading) {
   return (
-    <View style={{flex:1, flexDirection:'column', alignItems:'center'}}>
+    <View style={{flexDirection:'column', alignItems:'center'}}>
       <Text style={{justifyContent:'center'}} category='h3'>Add Exercises Below</Text>
     </View>)
 } else {
   return (
-    <View style={{flex:1, flexDirection:'column', alignItems: 'center'}}>
+    <View style={{flexDirection:'column', alignItems: 'center'}}>
       <Text category="h5" >{exercise.currentExercise.name}</Text>
-      <View style={{flex:1, flexDirection:'row', alignItems: 'center'}}>
+      <View style={{flexDirection:'row', alignItems: 'center'}}>
         <Text style={columnStyles}>Set</Text>
         <Text style={columnStyles}>Max Weight/Reps</Text>
         <Text style={columnStyles}>Previous Weight/Reps</Text>
@@ -52,7 +52,7 @@ if (exercise.name === 'none' || loading) {
 )}}
 
 const columnStyles = {
-  flex:1,
+  flex: 1,
   textAlign: 'center',
   maxWidth:60,
   minWidth: 60
