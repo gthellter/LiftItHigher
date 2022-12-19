@@ -16,7 +16,7 @@ const HomeScreen = () => {
   const setMuscleGroups = useWorkoutStore((state) => state.setMuscleGroups)
   const setEquipment = useWorkoutStore((state) => state.setEquipment)
   // get state from WorkoutStore
-  const workouts = useWorkoutStore.getState().workouts;
+  const workouts = useWorkoutStore((state) => state.workouts);
   const setExercises = useWorkoutStore((state) => state.setExercises);
   const setExerciseSets = useWorkoutStore((state) => state.setExerciseSets);
   const setUserData = useWorkoutStore((state) => state.setUserData);
@@ -47,10 +47,13 @@ const HomeScreen = () => {
   const navigateWorkout = (workout) => {
     navigation.navigate('Workout',{ workout });
   }
+  const handleAddWorkout = (e) => {
+    navigation.navigate('addWorkout');
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Button>Add Workout</Button>
+      <Button onPress={handleAddWorkout}>Add Workout</Button>
       <Divider/>
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ScrollView>

@@ -59,11 +59,11 @@ const WorkoutScreen = ({ navigation, route }) => {
     <ApplicationProvider {...eva}
     theme={{...eva.dark, ...theme}}
     customMapping={mapping}>
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 , height: 450}}>
       <TopNavigation title={workout} alignment='center' accessoryLeft={BackAction}/>
       <Divider/>
-      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 500 }}>
-        <Layout style={{flex: 1, flexWrap: 'wrap', flexShrink: 1, top: 10}} >
+      <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 700 }}>
+        <Layout style={{flex: 1, flexWrap: 'wrap', flexShrink: 1, top: 10, maxHeight: 750}} >
       <ScrollView>
           {currentExercises.map((exercise, index) => (
             <Exercise exercise={exercise} key={Math.random() * 100} workout={workout} exerciseIndex={index} />
@@ -71,10 +71,10 @@ const WorkoutScreen = ({ navigation, route }) => {
             <Text>{"\n\n\n"}</Text>
             </ScrollView>
         </Layout>
-        <View style={{flex:1, flexDirection:'row', position: 'absolute', bottom:-30}}>
+        <View style={{flex:1, flexDirection:'row', position: 'absolute', bottom: -30}}>
         <Button style={{flex: 1, justifyItems: 'flex-start', flexShrink: 2, maxHeight: 2, maxWidth: 60, bottom: 30, margin:30, borderRadius:'60%' }}
           onPress={() => {handleAddExercise()}}>+</Button>
-        <Button style={{flex: 1, justifyItems: 'flex-end', flexShrink: 2, maxHeight: 2, bottom: 30, margin: 30 }}
+        <Button style={{flex: 1, justifyItems: 'flex-end', flexShrink: 2, maxHeight: 2, bottom: 40, margin: 30 }}
           onPress={() => {handleSaveWorkout()}}>Save Workout</Button>
           </View>
       </Layout>
