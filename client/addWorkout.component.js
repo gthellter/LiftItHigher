@@ -33,8 +33,8 @@ const AddWorkoutScreen = ({navigation, route}) => {
 
   const handleSubmit = () => {
     console.log(newWorkout);
-    setWorkouts(workouts.push(newWorkout));
-    console.log(workouts);
+    let tempWorkouts = [...workouts, newWorkout];
+    setWorkouts(tempWorkouts);
     saveWorkouts();
     navigateBack();
   }

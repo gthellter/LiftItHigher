@@ -15,5 +15,12 @@ module.exports.saveAndUpdateUser = (data) => {
 
 module.exports.getUserData = (username) => {
   const query = {userData: { username }};
-  return workout.find(query).exec().then(res => res).catch(err => err);
+  return workout.find(query).exec().then(res => {
+    if (!res.workouts) {
+      res[0]["workouts"] = ['Upper Day 1'];
+    }
+    console.log(res[0]);
+    return res
+  }
+    ).catch(err => err);
 }

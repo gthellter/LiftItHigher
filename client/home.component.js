@@ -11,6 +11,7 @@ import { getMuscleGroups, getEquipment, getSavedWorkouts } from './getData';
 
 const HomeScreen = () => {
 
+  let loading = true;
   // set state
   const setWorkouts = useWorkoutStore((state) => state.setWorkouts)
   const setMuscleGroups = useWorkoutStore((state) => state.setMuscleGroups)
@@ -20,6 +21,7 @@ const HomeScreen = () => {
   const setExercises = useWorkoutStore((state) => state.setExercises);
   const setExerciseSets = useWorkoutStore((state) => state.setExerciseSets);
   const setUserData = useWorkoutStore((state) => state.setUserData);
+
 
   useEffect(() => {
   getMuscleGroups().then(results => {
@@ -35,10 +37,13 @@ const HomeScreen = () => {
     });
 
   getSavedWorkouts('gthellter').then(results => {
+    console.log('results', results.data[0]);
     setExercises(results.data[0].exerciseList);
     setExerciseSets(results.data[0].exerciseSets);
     setUserData({username: results.data[0].username});
-
+    let newWorkouts = [...workouts, results.data[0].workouts];
+    setWorkouts(newWorkouts)
+    loading = false;
   });
 
   },[])
@@ -51,8 +56,8 @@ const HomeScreen = () => {
     navigation.navigate('addWorkout');
   }
 
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
       <Button onPress={handleAddWorkout}>Add Workout</Button>
       <Divider/>
       <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -64,8 +69,7 @@ const HomeScreen = () => {
       </Layout>
     </SafeAreaView>
 )
-  };
-
+};
 export default () => (
   <>
     <IconRegistry icons={EvaIconsPack} />

@@ -15,6 +15,7 @@ app.post('/saveWorkout', (req, res) => {
 
 app.get('/getWorkout/', (req, res) => {
 getUserData(req.query.username).then(results => {
+  console.log(results)
   res.send(results);
 });
 });
