@@ -22,6 +22,7 @@ const AddWorkoutScreen = ({navigation, route}) => {
   const workouts = useWorkoutStore((state) => state.workouts);
 
   const [newWorkout, setNewWorkout] = useState('');
+  const [selectedIndex, setSelected] = useState(0);
 
   const navigateBack = () => {
     navigation.goBack();
@@ -37,6 +38,9 @@ const AddWorkoutScreen = ({navigation, route}) => {
     setWorkouts(tempWorkouts);
     saveWorkouts();
     navigateBack();
+  }
+  const handleRemove = () => {
+
   }
 
   return (
@@ -60,7 +64,22 @@ const AddWorkoutScreen = ({navigation, route}) => {
         <View>
           <Button onPress={handleSubmit}>Submit</Button>
         </View>
-
+        <View style={{flex: 1, flexShrink: 1, top: 10, maxWidth: 400, alignItems: 'center'}} >
+          <Text style={{paddingBottom: 5}}>Please enter new workout:</Text>
+          <Select
+            SelectedIndex={selectedIndex}
+            value={selectedIndex}
+            onSelect={index => setSelected(index)}
+            onChangeText={nextValue => setNewWorkout(nextValue)}
+          >
+            {Workouts.map((workout) => (
+              <SelectItem title={workout} key={workout}/>
+            ))}
+          </Select>
+        </View>
+        <View>
+          <Button onPress={handleRemove}>Remove</Button>
+        </View>
       </Layout>
     </SafeAreaView>
     </ApplicationProvider>
